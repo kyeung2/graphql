@@ -31,6 +31,26 @@ TODO make a better version soon
 #   {id, name}
 # }
 
+
+#mutation vote{
+#
+#  createVote( 
+#    linkId: "5ba0e4563a03170cbe2bb153" 
+#    userId: "5ba0e6ec3a03170dda2fc021"){
+#  
+#   		createdAt
+#    	link{
+#     	 	url
+#    	}
+#    	user{
+#     		name
+#  		}
+#  }  
+#}
+
+
+
+
 # queries
 query all{
   allLinks{
@@ -42,3 +62,4 @@ query all{
     }
   }
 }
+

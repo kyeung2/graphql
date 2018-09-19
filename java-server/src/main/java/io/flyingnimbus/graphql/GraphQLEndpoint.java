@@ -9,10 +9,8 @@ import graphql.servlet.SimpleGraphQLServlet;
 import io.flyingnimbus.graphql.pojo.User;
 import io.flyingnimbus.graphql.repo.LinkRepository;
 import io.flyingnimbus.graphql.repo.UserRepository;
-import io.flyingnimbus.graphql.resolvers.LinkResolver;
-import io.flyingnimbus.graphql.resolvers.Mutation;
-import io.flyingnimbus.graphql.resolvers.Query;
-import io.flyingnimbus.graphql.resolvers.SigninResolver;
+import io.flyingnimbus.graphql.repo.VoteRepository;
+import io.flyingnimbus.graphql.resolvers.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +24,7 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
     private static final LinkRepository linkRepository;
     private static final UserRepository userRepository;
+    private static final VoteRepository voteRepository;
 
     static {
         //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
@@ -33,6 +32,7 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
         MongoDatabase mongo = new MongoClient().getDatabase("playing_with_graphql");
         linkRepository = new LinkRepository(mongo.getCollection("links"));
         userRepository = new UserRepository(mongo.getCollection("users"));
+        voteRepository = new VoteRepository(mongo.getCollection("votes"));
     }
 
     public GraphQLEndpoint() {
@@ -44,13 +44,14 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
                 .file("schema.graphqls")
                 .resolvers(
                         new Query(linkRepository),
-                        new Mutation(linkRepository, userRepository),
+                        new Mutation(linkRepository, userRepository, voteRepository),
                         new SigninResolver(),
-                        new LinkResolver(userRepository))
+                        new LinkResolver(userRepository),
+                        new VoteResolver(linkRepository, userRepository))
+                .scalars(Scalars.dateTime)
                 .build()
                 .makeExecutableSchema();
     }
-
 
 
     @Override
@@ -61,9 +62,6 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
                 .map(id -> id.replace("Bearer ", ""))
                 .map(userRepository::findById)
                 .orElse(null);
-
-
-        System.out.println("did we add a user from the requests Bearer token?"+ user);
         return new AuthContext(user, request, response);
     }
 
