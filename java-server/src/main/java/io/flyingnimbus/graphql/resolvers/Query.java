@@ -1,6 +1,7 @@
 package io.flyingnimbus.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLRootResolver;
+import io.flyingnimbus.graphql.pojo.LinkFilter;
 import io.flyingnimbus.graphql.pojo.Link;
 import io.flyingnimbus.graphql.repo.LinkRepository;
 
@@ -17,8 +18,8 @@ public class Query implements GraphQLRootResolver {
         this.linkRepository = linkRepository;
     }
 
-    public List<Link> allLinks() {
-        return linkRepository.getAllLinks();
+    public List<Link> allLinks(LinkFilter filter) {
+        return linkRepository.getAllLinks(filter);
     }
 
 }
