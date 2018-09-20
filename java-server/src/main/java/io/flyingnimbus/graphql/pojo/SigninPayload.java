@@ -1,8 +1,13 @@
 package io.flyingnimbus.graphql.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Kye
  */
+@Getter
+@Setter
 public class SigninPayload {
 
     private final String token;
@@ -13,11 +18,4 @@ public class SigninPayload {
         this.user = user;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public User getUser() {
-        return user;
-    }
 }

@@ -1,10 +1,14 @@
 package io.flyingnimbus.graphql.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.ZonedDateTime;
 
 /**
  * @author Kye
  */
+@Getter
 public class Vote {
 
     private final String id;
@@ -21,21 +25,5 @@ public class Vote {
         this.createdAt = createdAt;
         this.userId = userId;
         this.linkId = linkId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getLinkId() {
-        return linkId;
     }
 }

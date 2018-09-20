@@ -31,8 +31,6 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
     private static final VoteRepository voteRepository;
 
     static {
-        //Change to `new MongoClient("mongodb://<host>:<port>/hackernews")`
-        //if you don't have Mongo running locally on port 27017
         MongoDatabase mongo = new MongoClient().getDatabase("playing_with_graphql");
         linkRepository = new LinkRepository(mongo.getCollection("links"));
         userRepository = new UserRepository(mongo.getCollection("users"));
@@ -60,6 +58,8 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
     @Override
     protected GraphQLContext createContext(Optional<HttpServletRequest> request, Optional<HttpServletResponse> response) {
+
+        // pretty hacky way of adding authorization feature.
         User user = request
                 .map(req -> req.getHeader("Authorization"))
                 .filter(id -> !id.isEmpty())
@@ -69,8 +69,6 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
         return new AuthContext(user, request, response);
     }
 
-
-
     @Override
     protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {
         return errors.stream()
@@ -78,5 +76,4 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
                 .map(e -> e instanceof ExceptionWhileDataFetching ? new SanitizedError((ExceptionWhileDataFetching) e) : e)
                 .collect(Collectors.toList());
     }
-
 }

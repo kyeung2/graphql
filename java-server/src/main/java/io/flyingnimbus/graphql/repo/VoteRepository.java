@@ -31,6 +31,7 @@ public class VoteRepository {
         return list;
     }
 
+    // as mentioned int he tutorial much care is needed with data collectors to make processing of queries efficient
     public List<Vote> findByLinkId(String linkId) {
         List<Vote> list = new ArrayList<>();
         for (Document doc : votes.find(eq("linkId", linkId))) {

@@ -24,5 +24,3 @@ public class AuthContext extends GraphQLContext {
     }
 
 }
-
-

@@ -18,7 +18,6 @@ import java.time.ZonedDateTime;
  */
 public class Mutation implements GraphQLRootResolver {
 
-
     private final LinkRepository linkRepository;
     private final UserRepository userRepository;
     private final VoteRepository voteRepository;
@@ -41,7 +40,6 @@ public class Mutation implements GraphQLRootResolver {
         return userRepository.saveUser(newUser);
     }
 
-
     public SigninPayload signinUser(AuthData auth) {
         User user = userRepository.findByEmail(auth.getEmail());
         if (user.getPassword().equals(auth.getPassword())) {
@@ -52,11 +50,6 @@ public class Mutation implements GraphQLRootResolver {
 
     public Vote createVote(String linkId, String userId) {
         ZonedDateTime now = Instant.now().atZone(ZoneOffset.UTC);
-
-        System.out.println("creating vote----");
-        System.out.println("linkId:"+ linkId);
-        System.out.println("userId:"+ userId);
-
         return voteRepository.saveVote(new Vote(now, userId, linkId));
     }
 }

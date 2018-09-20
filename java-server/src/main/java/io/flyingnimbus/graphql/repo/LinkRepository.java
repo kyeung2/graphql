@@ -27,12 +27,10 @@ public class LinkRepository {
         this.links = links;
     }
 
-
     public Link findById(String id) {
         Document doc = links.find(eq("_id", new ObjectId(id))).first();
         return link(doc);
     }
-
 
     public List<Link> getAllLinks(LinkFilter filter, int skip, int first) {
 
@@ -63,8 +61,7 @@ public class LinkRepository {
         );
     }
 
-
-    //builds a Bson from a LinkFilter
+    // not the nicest thing in the world for an application developer to deal with. Feels the more SQ-esque support that is added to the schema the more work needs to be done here. And the change will be a bespoke invention in the schema. Standards will probably come if this style of APIs take off.
     private Bson buildFilter(LinkFilter filter) {
         String descriptionPattern = filter.getDescriptionContains();
         String urlPattern = filter.getUrlContains();

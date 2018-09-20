@@ -1,8 +1,13 @@
 package io.flyingnimbus.graphql.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Kye
  */
+@Getter
+@Setter
 public class User {
 
     private final String id;
@@ -19,21 +24,5 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

@@ -12,8 +12,6 @@ public class SanitizedError extends ExceptionWhileDataFetching {
         super(inner.getException());
     }
 
-
-
     @JsonIgnore
     @Override
     public Throwable getException() {

@@ -1,6 +1,10 @@
 package io.flyingnimbus.graphql.pojo;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class Link {
 
     private final String id;
@@ -18,22 +22,5 @@ public class Link {
         this.url = url;
         this.description = description;
         this.userId = userId;
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 }
