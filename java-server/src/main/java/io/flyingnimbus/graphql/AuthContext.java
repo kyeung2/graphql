@@ -1,0 +1,26 @@
+package io.flyingnimbus.graphql;
+
+import graphql.servlet.GraphQLContext;
+import io.flyingnimbus.graphql.pojo.User;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
+
+/**
+ * @author Kye
+ */
+public class AuthContext extends GraphQLContext {
+
+    private final User user;
+
+    public AuthContext(User user, Optional<HttpServletRequest> request, Optional<HttpServletResponse> response) {
+        super(request, response);
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+}
