@@ -1,5 +1,6 @@
 package io.flyingnimbus.graphql.repo;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import io.flyingnimbus.graphql.pojo.LinkFilter;
 import io.flyingnimbus.graphql.pojo.Link;
@@ -33,12 +34,13 @@ public class LinkRepository {
     }
 
 
-    public List<Link> getAllLinks(LinkFilter filter) {
+    public List<Link> getAllLinks(LinkFilter filter, int skip, int first) {
 
         Optional<Bson> mongoFilter = Optional.ofNullable(filter).map(this::buildFilter);
 
         List<Link> ret = new ArrayList<>();
-        for (Document doc : mongoFilter.map(links::find).orElseGet(links::find)){
+        FindIterable<Document> documents = mongoFilter.map(links::find).orElseGet(links::find);
+        for (Document doc : documents.skip(skip).limit(first)){
             ret.add(link(doc));
         }
 
