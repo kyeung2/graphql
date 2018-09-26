@@ -1,9 +1,13 @@
 package io.flyingnimbus.graphql.repo;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import io.flyingnimbus.graphql.pojo.User;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -49,5 +53,15 @@ public class UserRepository {
                 doc.getString("name"),
                 doc.getString("email"),
                 doc.getString("password"));
+    }
+
+    public List<User> getAllUsers() {
+
+
+        List<User> ret = new ArrayList<>();
+        FindIterable<Document> documents = users.find();
+
+        documents.iterator().forEachRemaining(d->ret.add(user(d)));
+        return ret;
     }
 }

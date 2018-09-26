@@ -2,8 +2,7 @@
 This project was created following the excellent tutorials at [howtographql.com](https://www.howtographql.com/graphql-java/0-introduction/)
 
 
-TODO blog post coming soon
-Blog post: [Comparing REST and GraphQL](https://ioflyingnimbus.blogspot.com)
+Blog post: [Comparing REST and GraphQL](https://ioflyingnimbus.blogspot.com/2018/09/comparing-rest-and-graphql.html)
 
 ### Setup Mongo
 
